@@ -1,5 +1,5 @@
 {
-	"name": "your-module-name",
+	"name": "interspace-globalcue-live",
 	"version": "0.1.0",
 	"main": "dist/main.js",
 	"type": "module",
@@ -16,7 +16,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/bitfocus/companion-module-your-module-name.git"
+		"url": "git+https://github.com/robertskiba/companion-module-interspace-globalcue-live.git"
 	},
 	"engines": {
 		"node": "^22.20",

@@ -1,41 +1,56 @@
+import { combineRgb } from '@companion-module/base'
 import type ModuleInstance from './main.js'
+import type { ControlName } from './api.js'
 
 export type FeedbacksSchema = {
-	sample_feedback: {
+	presenter_status: {
 		type: 'boolean'
 		options: {
-			num: number
+			presenter: string
+			status: ControlName
 		}
 	}
 }
 
 export function UpdateFeedbacks(self: ModuleInstance): void {
+	const presenterChoices = self.getPresenterChoices()
+	const defaultPresenter = presenterChoices[0]?.id ?? ''
+
 	self.setFeedbackDefinitions({
-		sample_feedback: {
-			name: 'Example Feedback',
+		presenter_status: {
 			type: 'boolean',
+			name: 'Presenter Status (Paused / Playing / Solo)',
+			description:
+				'Only reports live state for presenters that GlobalCue is actively polling (session-discovered, or manually configured in the connection settings).',
 			defaultStyle: {
-				bgcolor: 0xff0000,
-				color: 0x000000,
+				bgcolor: combineRgb(0, 153, 0),
+				color: combineRgb(255, 255, 255),
 			},
 			options: [
 				{
-					id: 'num',
-					type: 'number',
-					label: 'Test',
-					default: 5,
-					min: 0,
-					max: 10,
-					clampValues: true, // If value is outside the min/max, clamp it to the min/max instead of rejecting the input
+					id: 'presenter',
+					type: 'dropdown',
+					label: 'Presenter',
+					choices: presenterChoices,
+					default: defaultPresenter,
+					allowCustom: true,
+				},
+				{
+					id: 'status',
+					type: 'dropdown',
+					label: 'Status',
+					choices: [
+						{ id: 'pause', label: 'Paused' },
+						{ id: 'play', label: 'Playing' },
+						{ id: 'solo', label: 'Solo' },
+					],
+					default: 'play',
 				},
 			],
 			callback: (feedback) => {
-				console.log('Hello world!', feedback.options.num)
-				if (feedback.options.num > 5) {
-					return true
-				} else {
-					return false
-				}
+				const state = self.presenters.get(String(feedback.options.presenter).trim())
+				if (!state) return false
+				return !!state[feedback.options.status]
 			},
 		},
 	})

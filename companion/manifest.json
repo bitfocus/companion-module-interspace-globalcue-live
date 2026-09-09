@@ -1,18 +1,19 @@
 {
 	"$schema": "../node_modules/@companion-module/base/assets/manifest.schema.json",
 	"type": "connection",
-	"id": "your-module-name",
-	"name": "your-module-name",
-	"shortname": "module-shortname",
-	"description": "A short one line description of your module",
+	"id": "interspace-globalcue-live",
+	"name": "interspace-globalcue-live",
+	"shortname": "GlobalCue Live",
+	"description": "Control and monitor presenters on the Interspace GlobalCue Live cue-light service",
 	"version": "0.0.0",
 	"license": "MIT",
-	"repository": "git+https://github.com/bitfocus/companion-module-your-module-name.git",
-	"bugs": "https://github.com/bitfocus/companion-module-your-module-name/issues",
+	"repository": "git+https://github.com/robertskiba/companion-module-interspace-globalcue-live.git",
+	"bugs": "https://github.com/robertskiba/companion-module-interspace-globalcue-live/issues",
 	"maintainers": [
 		{
-			"name": "Your name",
-			"email": "Your email"
+			"name": "Robert Skiba",
+			"email": "info@konferenzregie.de",
+			"github": "https://github.com/robertskiba"
 		}
 	],
 	"runtime": {
@@ -22,7 +23,7 @@
 		"entrypoint": "../dist/main.js"
 	},
 	"legacyIds": [],
-	"manufacturer": "Your company",
-	"products": ["Your product"],
-	"keywords": []
+	"manufacturer": "Interspace Industries",
+	"products": ["GlobalCue Live"],
+	"keywords": ["GlobalCue", "Cue", "Presenter", "Interspace", "Clicker", "Cue Light"]
 }

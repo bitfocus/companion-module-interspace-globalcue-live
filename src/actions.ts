@@ -1,29 +1,102 @@
 import type ModuleInstance from './main.js'
+import type { CueName, ControlName } from './api.js'
 
 export type ActionsSchema = {
-	sample_action: {
+	send_cue: {
 		options: {
-			num: number
+			presenter: string
+			cue: CueName
+		}
+	}
+	presenter_control: {
+		options: {
+			presenter: string
+			control: ControlName
+		}
+	}
+	toggle_pause: {
+		options: {
+			presenter: string
 		}
 	}
 }
 
 export function UpdateActions(self: ModuleInstance): void {
+	const presenterChoices = self.getPresenterChoices()
+	const defaultPresenter = presenterChoices[0]?.id ?? ''
+
 	self.setActionDefinitions({
-		sample_action: {
-			name: 'My First Action',
+		send_cue: {
+			name: 'Send Cue (Forward / Back / Black)',
 			options: [
 				{
-					id: 'num',
-					type: 'number',
-					label: 'Test',
-					default: 5,
-					min: 0,
-					max: 100,
+					id: 'presenter',
+					type: 'dropdown',
+					label: 'Presenter',
+					tooltip: 'Choose a known presenter, or type/paste a presenter ID',
+					choices: presenterChoices,
+					default: defaultPresenter,
+					allowCustom: true,
+				},
+				{
+					id: 'cue',
+					type: 'dropdown',
+					label: 'Cue',
+					choices: [
+						{ id: 'forward', label: 'Forward' },
+						{ id: 'back', label: 'Back' },
+						{ id: 'black', label: 'Black' },
+					],
+					default: 'forward',
 				},
 			],
 			callback: async (event) => {
-				console.log('Hello world!', event.options.num)
+				await self.sendCommand(String(event.options.presenter), event.options.cue)
+			},
+		},
+		presenter_control: {
+			name: 'Presenter Control (Pause / Play / Solo)',
+			options: [
+				{
+					id: 'presenter',
+					type: 'dropdown',
+					label: 'Presenter',
+					tooltip: 'Choose a known presenter, or type/paste a presenter ID',
+					choices: presenterChoices,
+					default: defaultPresenter,
+					allowCustom: true,
+				},
+				{
+					id: 'control',
+					type: 'dropdown',
+					label: 'Action',
+					choices: [
+						{ id: 'pause', label: 'Pause' },
+						{ id: 'play', label: 'Play (Resume)' },
+						{ id: 'solo', label: 'Solo' },
+					],
+					default: 'pause',
+				},
+			],
+			callback: async (event) => {
+				await self.sendCommand(String(event.options.presenter), event.options.control)
+			},
+		},
+		toggle_pause: {
+			name: 'Toggle Pause / Play',
+			options: [
+				{
+					id: 'presenter',
+					type: 'dropdown',
+					label: 'Presenter',
+					tooltip: 'Choose a known presenter, or type/paste a presenter ID',
+					choices: presenterChoices,
+					default: defaultPresenter,
+					allowCustom: true,
+				},
+			],
+			callback: async (event) => {
+				await self.togglePause(String(event.options.presenter))
 			},
 		},
 	})
