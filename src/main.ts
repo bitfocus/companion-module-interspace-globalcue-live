@@ -64,7 +64,7 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 		this.log('debug', 'destroy')
 	}
 
-	async configUpdated(config: ModuleConfig): Promise<void> {
+	async configUpdated(config: ModuleConfig, _secrets: undefined): Promise<void> {
 		this.stopPolling()
 		this.config = config
 		this.startFresh()
@@ -140,7 +140,7 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 		this.presenterOrder = []
 		this.pollGeneration++
 
-		const sessionId = this.config.sessionId.trim()
+		const sessionId = this.getSessionId()
 		if (!sessionId) {
 			const configuredAny = this.seedManualPresenters()
 			if (!configuredAny) {
@@ -185,9 +185,13 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 		return this.presenterOrder.length > 0
 	}
 
+	private getSessionId(): string {
+		return (this.config.sessionId ?? '').trim()
+	}
+
 	private startPolling(): void {
 		const generation = this.pollGeneration
-		const sessionId = this.config.sessionId.trim()
+		const sessionId = this.getSessionId()
 		if (sessionId) {
 			void this.pollSessionLoop(sessionId, generation)
 		} else {

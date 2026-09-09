@@ -11,12 +11,7 @@ export type ActionsSchema = {
 	presenter_control: {
 		options: {
 			presenter: string
-			control: ControlName
-		}
-	}
-	toggle_pause: {
-		options: {
-			presenter: string
+			control: ControlName | 'toggle'
 		}
 	}
 }
@@ -55,7 +50,7 @@ export function UpdateActions(self: ModuleInstance): void {
 			},
 		},
 		presenter_control: {
-			name: 'Presenter Control (Pause / Play / Solo)',
+			name: 'Presenter Control (Pause / Play / Solo / Toggle)',
 			options: [
 				{
 					id: 'presenter',
@@ -74,29 +69,18 @@ export function UpdateActions(self: ModuleInstance): void {
 						{ id: 'pause', label: 'Pause' },
 						{ id: 'play', label: 'Play (Resume)' },
 						{ id: 'solo', label: 'Solo' },
+						{ id: 'toggle', label: 'Toggle Pause/Play' },
 					],
 					default: 'pause',
 				},
 			],
 			callback: async (event) => {
-				await self.sendCommand(String(event.options.presenter), event.options.control)
-			},
-		},
-		toggle_pause: {
-			name: 'Toggle Pause / Play',
-			options: [
-				{
-					id: 'presenter',
-					type: 'dropdown',
-					label: 'Presenter',
-					tooltip: 'Choose a known presenter, or type/paste a presenter ID',
-					choices: presenterChoices,
-					default: defaultPresenter,
-					allowCustom: true,
-				},
-			],
-			callback: async (event) => {
-				await self.togglePause(String(event.options.presenter))
+				const presenter = String(event.options.presenter)
+				if (event.options.control === 'toggle') {
+					await self.togglePause(presenter)
+				} else {
+					await self.sendCommand(presenter, event.options.control)
+				}
 			},
 		},
 	})

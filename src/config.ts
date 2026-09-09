@@ -38,6 +38,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 			id: 'sessionId',
 			label: 'Session ID (optional - enables automatic presenter discovery)',
 			width: 12,
+			default: '',
 			disableAutoExpression: true,
 		},
 		{
@@ -61,6 +62,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 				label: `Presenter ${i} ID`,
 				tooltip: 'Found at the end of the presenter link, e.g. 123-456-7890',
 				width: 6,
+				default: '',
 				isVisibleExpression: `!$(options:sessionId) && $(options:presenterCount) >= ${i}`,
 			},
 			{
@@ -68,6 +70,7 @@ export function GetConfigFields(): SomeCompanionConfigField[] {
 				id: `presenter${i}Name`,
 				label: `Presenter ${i} Name`,
 				width: 6,
+				default: '',
 				isVisibleExpression: `!$(options:sessionId) && $(options:presenterCount) >= ${i}`,
 			},
 		)

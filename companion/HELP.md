@@ -17,8 +17,8 @@ You have two options, configured on the connection's config page:
 ### Actions
 
 - **Send Cue** - inject a Forward, Back or Black cue to a presenter.
-- **Presenter Control** - Pause, Play (resume) or Solo a presenter.
-- **Toggle Pause / Play** - pause a presenter if playing, or resume if paused.
+- **Presenter Control** - Pause, Play (resume), Solo, or Toggle Pause/Play (pauses if playing,
+  resumes if paused) a presenter.
 
 Each action has a "Presenter" dropdown listing every currently known presenter. You can also
 type/paste any other presenter ID directly into that field (or use a variable), even if it
@@ -42,5 +42,7 @@ For every known presenter (numbered in the order they were discovered/configured
 
 ### Presets
 
-A row of buttons (Forward / Back / Black / Toggle Pause-Play / Solo) is generated automatically
-for every known presenter.
+A group of 8 buttons ("Presenter {n} - {Name} ({ID})") is generated automatically for every
+known presenter, and updates live as presenters are added/removed (e.g. discovered via a
+Session ID): **Name** (display, highlights while playing), **Next**, **Back**, **Black**,
+**Solo**, **Play**, **Toggle Pause/Play**, and **Pause**.
