@@ -16,7 +16,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/robertskiba/companion-module-interspace-globalcue-live.git"
+		"url": "git+https://github.com/bitfocus/companion-module-interspace-globalcue-live.git"
 	},
 	"engines": {
 		"node": "^22.20",

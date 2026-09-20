@@ -7,8 +7,8 @@
 	"description": "Control and monitor presenters on the Interspace GlobalCue Live cue-light service",
 	"version": "0.0.0",
 	"license": "MIT",
-	"repository": "git+https://github.com/robertskiba/companion-module-interspace-globalcue-live.git",
-	"bugs": "https://github.com/robertskiba/companion-module-interspace-globalcue-live/issues",
+	"repository": "git+https://github.com/bitfocus/companion-module-interspace-globalcue-live.git",
+	"bugs": "https://github.com/bitfocus/companion-module-interspace-globalcue-live/issues",
 	"maintainers": [
 		{
 			"name": "Robert Skiba",
