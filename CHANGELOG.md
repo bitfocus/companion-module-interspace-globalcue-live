@@ -3,6 +3,16 @@
 All notable changes to this module are documented in this file.
 The format is loosely based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [1.0.1] - 2026-09-20
+
+### Fixed
+
+- `manifest.json` and `package.json` `repository`/`bugs` fields pointed at the developer's
+  personal fork instead of the official `bitfocus/companion-module-interspace-globalcue-live`
+  repository.
+- `README.md` only had the generic scaffold dev-setup instructions; added a short feature
+  summary and a link to `companion/HELP.md`.
+
 ## [1.0.0] - 2026-09-09
 
 Initial release.
